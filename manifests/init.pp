@@ -4,22 +4,14 @@
 #
 # == Parameters
 #
+# If a parameter is not specified, it will default to the value in
+# pe_upgrade::data. See that class for values
+#
 # [*version*]
-#
-# The version of PE to upgrade to. Must be in the form of
-# <major release>.<minor release>.<patch release>
-# For example, 2.0.2
-#
-# Default: 2.5.0
 #
 # [*answersfile*]
 #
-# The path to a PE answers file. Defaults to the template
-# "pe/answers/default-agent.txt.erb".
-#
 # [*download_dir*]
-#
-# The location to fetch the Puppet Enterprise installer tarball.
 #
 # [*timeout*]
 #
@@ -29,17 +21,15 @@
 #
 # == Examples
 #
-#   # Minimal
-#   class { 'pe_upgrade':
-#     version      => '2.5.0',
-#     download_dir => 'https://download.server.local/puppet-enterprise/2.5.0',
-#   }
+#   # Install from Puppet Labs servers with all defaults
+#   include pe_upgrade
+#
 #
 #   # More customized
 #   class { 'pe_upgrade':
 #     version      => '2.5.0',
 #     answersfile  => "site/answers/${fqdn}-answers.txt",
-#     download_dir => 'https://pm.puppetlabs.com/puppet-enterprise/2.5.0',
+#     download_dir => 'https://local.site.downloads/puppet-enterprise/2.5.0',
 #     timeout      => '3600',
 #  }
 #
