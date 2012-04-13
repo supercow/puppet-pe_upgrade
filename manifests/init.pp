@@ -103,6 +103,14 @@ class pe_upgrade(
     # Stage the installer and answers file
     ############################################################################
 
+    # Remove failed staging attempts. Nominally this should be in
+    # the staging module.
+    exec { "rm ${installer_tar}":
+      path   => "/usr/bin:/bin",
+      onlyif => "test `md5sum ${installer_tar}` != ${checksum}",
+      before => Staging::File[$installer_tar],
+    }
+
     staging::file { $installer_tar:
       source  => $source_url,
       timeout => $timeout,
