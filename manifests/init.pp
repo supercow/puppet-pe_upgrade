@@ -74,7 +74,7 @@ class pe_upgrade(
   $version      = $pe_upgrade::data::version,
   $answersfile  = $pe_upgrade::data::answersfile,
   $timeout      = undef
-) {
+) inherits pe_upgrade::data {
 
   if $version == $::pe_version {
     # This conditional is added to reduce the catalog size after the upgrade
