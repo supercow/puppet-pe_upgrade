@@ -15,10 +15,6 @@
 #
 # [*timeout*]
 #
-# The timeout in seconds for the download of the Puppet Enterprise installer.
-#
-# Default(Standard for exec): 600 seconds
-#
 # == Examples
 #
 #   # Install from Puppet Labs servers with all defaults
@@ -63,7 +59,8 @@ class pe_upgrade(
   $download_dir = $pe_upgrade::data::download_dir,
   $version      = $pe_upgrade::data::version,
   $answersfile  = $pe_upgrade::data::answersfile,
-  $timeout      = undef
+  $checksum     = $pe_upgrade::data::checksum,
+  $timeout      = $pe_upgrade::data::timeout
 ) inherits pe_upgrade::data {
 
   if $version == $::pe_version {

@@ -34,6 +34,13 @@
 # * global variable: pe_upgrade_answersfile
 # * default value: pe_upgrade/answers/default-agent.txt.erb
 #
+# === [*timeout*]
+#
+# The timeout in seconds for the download of the Puppet Enterprise installer.
+#
+# * global variable: pe_upgrade_timeout
+# * default value: 3600 seconds
+#
 # == Authors
 #
 # Adrien Thebo <adrien@puppetlabs.com>
@@ -68,4 +75,7 @@ class pe_upgrade::data {
 
   if $::pe_upgrade_answersfile { $answersfile = $pe_answersfile }
   else { $answersfile = "pe_upgrade/answers/default-agent.txt.erb" }
+
+  if $::pe_upgrade_timeout { $timeout = $::pe_upgrade_timeout }
+  else { $timeout = '3600' }
 }
