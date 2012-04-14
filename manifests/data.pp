@@ -65,7 +65,7 @@
 #
 class pe_upgrade::data {
   if $::pe_upgrade_version { $version = $::pe_upgrade_version }
-  else { $version = file('/opt/puppet/pe_version') }
+  else { $version = chomp(file('/opt/puppet/pe_version')) }
 
   if $::pe_upgrade_download_dir { $download_dir = $::pe_upgrade_download_dir }
   else { $download_dir = "https://pm.puppetlabs.com/puppet-enterprise/${version}" }
