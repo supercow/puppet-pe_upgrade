@@ -25,7 +25,7 @@
 # The md5 checksum used to verify the installer download
 #
 # * global variable: pe_upgrade_checksum
-# * default value: 51555e4827effc5d180a53a9fb2ee8c9
+# * default value: undef (no verification)
 #
 # === [*answersfile*]
 #
@@ -71,7 +71,7 @@ class pe_upgrade::data {
   else { $download_dir = "https://pm.puppetlabs.com/puppet-enterprise/${version}" }
 
   if $::pe_upgrade_checksum { $checksum = $::pe_upgrade_checksum }
-  else { $checksum = '51555e4827effc5d180a53a9fb2ee8c9' }
+  else { $checksum = undef }
 
   if $::pe_upgrade_answersfile { $answersfile = $::pe_upgrade_answersfile }
   else { $answersfile = "pe_upgrade/answers/default-agent.txt.erb" }
