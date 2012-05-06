@@ -135,6 +135,7 @@ class pe_upgrade(
       user      => 0,
       group     => 0,
       logoutput => on_failure,
+      timeout   => $timeout,
       require   => Staging::Extract[$installer_tar],
     }
 
@@ -151,6 +152,7 @@ class pe_upgrade(
       user      => 0,
       group     => 0,
       logoutput => on_failure,
+      timeout   => $timeout,
       require   => Exec['Validate answers'],
     }
   }
