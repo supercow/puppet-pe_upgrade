@@ -160,6 +160,18 @@ class pe_upgrade(
         timeout   => $timeout,
         require   => Exec['Validate answers'],
       }
+
+      ############################################################################
+      # If running in install mode, then shut down Puppet Open Source after install
+      # Don't actually remove it. Let the user define that strategy
+      ############################################################################
+      if $mode == 'install' {
+        service { 'puppet':
+          ensure  => stopped,
+          enable  => false,
+          require => Exec['Run upgrade'],
+        }
+      }
     }
   }
 }
