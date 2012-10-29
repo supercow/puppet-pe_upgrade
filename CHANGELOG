@@ -1,0 +1,10 @@
+CHANGELOG
+=========
+
+0.2.0
+-----
+
+This is a backwards compatible feature release
+
+  * Add support for upgrading Puppet OSS to Puppet Enterprise. Thanks to Ben
+    Ford for adding this feature.

@@ -1,5 +1,5 @@
 name    'adrien-pe_upgrade'
-version '0.1.2'
+version '0.2.0'
 author  'Adrien Thebo <adrien@puppetlabs.com>'
 license 'Apache 2.0'
 
