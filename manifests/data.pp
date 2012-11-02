@@ -80,6 +80,14 @@
 # * global variable: pe_upgrade_upgrade_master
 # * default value: false
 #
+# === [*verbose*]
+#
+# Generate warnings and notifications. If this is enabled then reports for
+# nodes with this class might always report as changed.
+#
+# * global variable: pe_upgrade_verbose
+# * default value: false
+#
 # == Authors
 #
 # Adrien Thebo <adrien@puppetlabs.com>
@@ -133,4 +141,7 @@ class pe_upgrade::data {
 
   if $::pe_upgrade_upgrade_master { $upgrade_master = $::pe_upgrade_upgrade_master }
   else { $upgrade_master = false }
+
+  if $::pe_upgrade_verbose { $verbose = $::pe_upgrade_verbose }
+  else { $verbose = false }
 }

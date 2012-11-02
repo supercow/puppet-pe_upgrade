@@ -76,9 +76,16 @@ class pe_upgrade(
   $certname       = $pe_upgrade::data::certname,
   $force_upgrade  = $pe_upgrade::data::force_upgrade,
   $upgrade_master = $pe_upgrade::data::upgrade_master,
+  $verbose        = $pe_upgrade::data::verbose,
 ) inherits pe_upgrade::data {
 
   if $::pe_version == $version {
+    if $verbose {
+      notify { "Upgrade status":
+        loglevel => info,
+        message  => "Current PE version '${pe_version}' at desired version '${version}'; not managing upgrade resources",
+      }
+    }
   }
   else {
 
