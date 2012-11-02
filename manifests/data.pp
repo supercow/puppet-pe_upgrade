@@ -43,8 +43,13 @@
 #
 # === [*force_upgrade*]
 #
-# Forces the upgrade to run on a Puppet master. By default Puppet masters will
-# not upgrade themselves to avoid performing a premature upgrade.
+# Force pe_upgrade to bypass safety validation.
+#
+# By default, pe_upgrade will not try to upgrade Puppet masters, since they're
+# somewhat sensitive, and it will refuse to downgrade PE versions. Enabling this
+# will bypass those checks. Use with caution.
+#
+# * default value: false
 #
 # == Authors
 #

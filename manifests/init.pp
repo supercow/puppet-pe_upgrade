@@ -15,6 +15,14 @@
 #
 # [*timeout*]
 #
+# [*mode*]
+#
+# [*server*]
+#
+# [*certname*]
+#
+# [*force_upgrade*]
+#
 # == Examples
 #
 #   # Install from Puppet Labs servers with all defaults
@@ -67,17 +75,7 @@ class pe_upgrade(
   $force_upgrade = $pe_upgrade::data::force_upgrade,
 ) inherits pe_upgrade::data {
 
-  if $::osfamily == 'Windows' {
-    fail("osfamily 'Windows' is not currently supported")
-  }
-
-  if  $::fact_is_puppetmaster and ! $force_upgrade {
-    fail("Refusing to upgrade Puppet master ${::clientcert} without 'force_upgrade' set.")
-  }
-
-  if $version == $::pe_version {
-    # This conditional is added to reduce the catalog size after the upgrade
-    # has been performed.
+  if $::pe_version == $version {
   }
   else {
 
@@ -90,6 +88,7 @@ class pe_upgrade(
     $staging_root = "${staging::path}/pe_upgrade"
 
     anchor { 'pe_upgrade::begin': } ->
+    class { 'pe_upgrade::validation': } ->
     class { 'pe_upgrade::staging':  timeout => $timeout } ->
     class { 'pe_upgrade::execution': timeout => $timeout } ->
     anchor { 'pe_upgrade::end': }
