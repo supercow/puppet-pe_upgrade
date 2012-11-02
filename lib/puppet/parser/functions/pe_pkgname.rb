@@ -37,7 +37,7 @@ EOD
   end
 
   facts = nil
-  expected_facts = %w[architecture osfamily operatingsystem lsbmajdistrelease]
+  expected_facts = %w[architecture osfamily operatingsystem lsbdistrelease lsbmajdistrelease]
   if (manual_facts = args[1])
     facts = manual_facts
   else
@@ -68,8 +68,12 @@ EOD
   when 'RedHat'
     pkg = "puppet-enterprise-%s-el-#{f['lsbmajdistrelease']}-#{f['architecture']}"
   when 'Debian'
-    distro = f['operatingsystem'].downcase
-    pkg    = "puppet-enterprise-%s-#{distro}-#{f['lsbmajdistrelease']}-#{f['architecture']}"
+    case f['operatingsystem']
+    when 'Debian'
+      pkg = "puppet-enterprise-%s-debian-#{f['lsbmajdistrelease']}-#{f['architecture']}"
+    when 'Ubuntu'
+      pkg = "puppet-enterprise-%s-ubuntu-#{f['lsbdistrelease']}-#{f['architecture']}"
+    end
   when 'SLES'
     pkg = "puppet-enterprise-%s-sles-11-#{f['architecture']}"
   when 'Solaris'
