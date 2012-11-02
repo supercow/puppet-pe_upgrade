@@ -66,17 +66,17 @@
 # limitations under the License.
 #
 class pe_upgrade(
-  $download_dir   = $pe_upgrade::data::download_dir,
-  $version        = $pe_upgrade::data::version,
-  $answersfile    = $pe_upgrade::data::answersfile,
-  $checksum       = $pe_upgrade::data::checksum,
-  $timeout        = $pe_upgrade::data::timeout,
-  $mode           = $pe_upgrade::data::mode,
-  $server         = $pe_upgrade::data::server,
-  $certname       = $pe_upgrade::data::certname,
-  $force_upgrade  = $pe_upgrade::data::force_upgrade,
-  $upgrade_master = $pe_upgrade::data::upgrade_master,
-  $verbose        = $pe_upgrade::data::verbose,
+  $download_dir    = $pe_upgrade::data::download_dir,
+  $version         = $pe_upgrade::data::version,
+  $answersfile     = $pe_upgrade::data::answersfile,
+  $checksum        = $pe_upgrade::data::checksum,
+  $timeout         = $pe_upgrade::data::timeout,
+  $mode            = $pe_upgrade::data::mode,
+  $server          = $pe_upgrade::data::server,
+  $certname        = $pe_upgrade::data::certname,
+  $allow_downgrade = $pe_upgrade::data::allow_downgrade,
+  $upgrade_master  = $pe_upgrade::data::upgrade_master,
+  $verbose         = $pe_upgrade::data::verbose,
 ) inherits pe_upgrade::data {
 
   if $::pe_version == $version {
