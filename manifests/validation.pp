@@ -1,9 +1,11 @@
 # This class exists to fail.
-class pe_upgrade::validation {
+class pe_upgrade::validation(
+  $version,
+  $allow_downgrade,
+  $upgrade_master,
+) {
 
   include pe_upgrade
-  $allow_downgrade = $pe_upgrade::force_upgrade
-  $upgrade_master  = $pe_upgrade::upgrade_master
 
   if $::osfamily == 'Windows' {
     fail("osfamily 'Windows' is not currently supported")

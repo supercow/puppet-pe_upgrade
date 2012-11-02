@@ -99,7 +99,11 @@ class pe_upgrade(
     $staging_root = "${::staging::path}/pe_upgrade"
 
     anchor { 'pe_upgrade::begin': } ->
-    class { 'pe_upgrade::validation': } ->
+    class { 'pe_upgrade::validation':
+      version         => $version,
+      upgrade_master  => $upgrade_master,
+      allow_downgrade => $allow_downgrade,
+    } ->
     class { 'pe_upgrade::staging':   timeout => $timeout } ->
     class { 'pe_upgrade::execution': timeout => $timeout } ->
     anchor { 'pe_upgrade::end': }
