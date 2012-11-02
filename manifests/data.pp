@@ -41,14 +41,22 @@
 # * global variable: pe_upgrade_timeout
 # * default value: 3600 seconds
 #
-# === [*force_upgrade*]
+# === [*allow_downgrade*]
 #
-# Force pe_upgrade to bypass safety validation.
+# Force pe_upgrade to bypass downgrade checks
+#
+# By default, pe_upgrade will refuse to downgrade PE. If this is set to true
+# the downgrade validation will be bypassed.
+#
+# * global variable: pe_upgrade_allow_downgrade
+# * default value: false
+#
+# === [*upgrade_master*]
 #
 # By default, pe_upgrade will not try to upgrade Puppet masters, since they're
-# somewhat sensitive, and it will refuse to downgrade PE versions. Enabling this
-# will bypass those checks. Use with caution.
+# somewhat sensitive. Enabling this # will bypass those checks. Use with caution.
 #
+# * global variable: pe_upgrade_upgrade_master
 # * default value: false
 #
 # == Authors
@@ -74,6 +82,7 @@
 # limitations under the License.
 #
 class pe_upgrade::data {
+
   if $::pe_upgrade_version { $version = $::pe_upgrade_version }
   else { $version = chomp(file('/opt/puppet/pe_version')) }
 
@@ -98,6 +107,9 @@ class pe_upgrade::data {
   if $::pe_upgrade_certname { $server = $::pe_upgrade_certname }
   else { $certname = $::clientcert }
 
-  if $::pe_upgrade_force_upgrade { $force_upgrade = $::pe_upgrade_force_upgrade }
-  else { $force_upgrade = false }
+  if $::pe_upgrade_allow_downgrade { $allow_downgrade = $::pe_upgrade_allow_downgrade }
+  else { $allow_downgrade = false }
+
+  if $::pe_upgrade_upgrade_master { $upgrade_master = $::pe_upgrade_upgrade_master }
+  else { $upgrade_master = false }
 }

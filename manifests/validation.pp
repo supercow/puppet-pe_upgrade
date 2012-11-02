@@ -2,14 +2,15 @@
 class pe_upgrade::validation {
 
   include pe_upgrade
-  $force_upgrade = $pe_upgrade::force_upgrade
+  $allow_downgrade = $pe_upgrade::force_upgrade
+  $upgrade_master  = $pe_upgrade::upgrade_master
 
   if $::osfamily == 'Windows' {
     fail("osfamily 'Windows' is not currently supported")
   }
 
-  if $::fact_is_puppetmaster == 'true' and ! $force_upgrade {
-    fail("Refusing to upgrade Puppet master ${::clientcert} without 'force_upgrade' set")
+  if $::fact_is_puppetmaster == 'true' and ! $upgrade_master {
+    fail("Refusing to upgrade Puppet master ${::clientcert} without 'upgrade_master' set")
   }
 
   # Perform version validation
@@ -20,7 +21,7 @@ class pe_upgrade::validation {
 
   # If someone really really wants to force a downgrade, I respect their
   # decisions and trust they understand the implication of their actions.
-  if ! $force_upgrade {
+  if ! $allow_downgrade {
     $errmsg = "Refusing to downgrade from ${::pe_version} to ${version} without 'force_upgrade' set"
     if $desired_major_version < $pe_major_version {
       # If requested major version is less than the current major version,
