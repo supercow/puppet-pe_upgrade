@@ -82,8 +82,8 @@ class pe_upgrade(
       # Munge variables
       ############################################################################
 
-      $installer_tar = "puppet-enterprise-${version}-all.tar.gz"
-      $installer_dir = "puppet-enterprise-${version}-all"
+      $installer_dir = pe_pkgname($version)
+      $installer_tar = "${installer_dir}.tar.gz"
 
       $source_url = "${download_dir}/${installer_tar}"
 
