@@ -85,6 +85,7 @@ class pe_upgrade(
     $installer_dir = pe_pkgname($version)
     $installer_tar = "${installer_dir}.tar.gz"
 
+    include staging
     $staging_root = "${staging::path}/pe_upgrade"
 
     anchor { 'pe_upgrade::begin': } ->
