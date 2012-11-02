@@ -41,6 +41,11 @@
 # * global variable: pe_upgrade_timeout
 # * default value: 3600 seconds
 #
+# === [*force_upgrade*]
+#
+# Forces the upgrade to run on a Puppet master. By default Puppet masters will
+# not upgrade themselves to avoid performing a premature upgrade.
+#
 # == Authors
 #
 # Adrien Thebo <adrien@puppetlabs.com>
@@ -87,4 +92,7 @@ class pe_upgrade::data {
 
   if $::pe_upgrade_certname { $server = $::pe_upgrade_certname }
   else { $certname = $::clientcert }
+
+  if $::pe_upgrade_force_upgrade { $force_upgrade = $::pe_upgrade_force_upgrade }
+  else { $force_upgrade = false }
 }
