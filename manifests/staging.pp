@@ -32,7 +32,7 @@ class pe_upgrade::staging($timeout) {
   }
 
   staging::extract { $installer_tar:
-    target  => "${staging::path}/pe_upgrade",
+    target  => $staging_root,
     require => Staging::File[$installer_tar],
   }
 }
