@@ -66,6 +66,10 @@ class pe_upgrade(
   $certname     = $pe_upgrade::data::certname
 ) inherits pe_upgrade::data {
 
+  if $::osfamily == 'Windows' {
+    fail("osfamily 'Windows' is not currently supported")
+  }
+
   if ! $::fact_is_puppetmaster {
     if $version == $::pe_version {
       # This conditional is added to reduce the catalog size after the upgrade
