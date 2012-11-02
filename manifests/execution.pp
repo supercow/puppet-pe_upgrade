@@ -1,11 +1,12 @@
-class pe_upgrade::execution($timeout, $logfile) {
-
-  include pe_upgrade
-  # These variables are not passed as parameters because they have to remain
-  # constant and should not be tuned. Private variables, if you will.
-  $mode         = $pe_upgrade::mode
-  $staging_root = $pe_upgrade::staging_root
-  $answersfile  = $pe_upgrade::answersfile
+class pe_upgrade::execution(
+  $certname,
+  $installer_dir,
+  $logfile,
+  $mode,
+  $server,
+  $staging_root,
+  $timeout,
+) {
 
   $bin = $mode ? {
     'install' => 'puppet-enterprise-installer',
@@ -14,6 +15,8 @@ class pe_upgrade::execution($timeout, $logfile) {
 
   if $logfile { $log_directive = "-l ${logfile}" }
   else        { $log_directive = "" }
+
+  $answersfile_dest = "${staging_root}/answers.txt"
 
   $cmd = "${staging_root}/${installer_dir}/${bin}"
   $validate_cmd = "${cmd} -n -a ${answersfile_dest}"
@@ -28,11 +31,6 @@ class pe_upgrade::execution($timeout, $logfile) {
     '/usr/local/sbin'
   ]
 
-  # These values are supplied to the answersfile template.
-  $certname     = $pe_upgrade::certname
-  $server       = $pe_upgrade::server
-
-  $answersfile_dest = "${staging_root}/answers.txt"
   file { $answersfile_dest:
     ensure  => present,
     content => template($answersfile),

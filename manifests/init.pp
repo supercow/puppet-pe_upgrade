@@ -107,8 +107,13 @@ class pe_upgrade(
     } ->
     class { 'pe_upgrade::staging':   timeout => $timeout } ->
     class { 'pe_upgrade::execution':
-      timeout => $timeout,
-      logfile => $logfile,
+      mode          => $mode,
+      staging_root  => $staging_root,
+      installer_dir => $installer_dir,
+      timeout       => $timeout,
+      logfile       => $logfile,
+      certname      => $certname,
+      server        => $server,
     } ->
     anchor { 'pe_upgrade::end': }
   }
