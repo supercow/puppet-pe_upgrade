@@ -36,19 +36,9 @@ EOD
     raise Puppet::Error, "pe_pkgname(): expected a semantic version string matching, got '#{desired_pe_version}'"
   end
 
+  facts = nil
   expected_facts = %w[architecture osfamily operatingsystem lsbmajdistrelease]
   if (manual_facts = args[1])
-    # If we've been passed a hash of manual facts, ensure that the provided
-    # hash has all the fields we need.
-    missing_facts = expected_facts.select { |fact| manual_facts[fact].nil? }
-
-    if missing_facts.size > 0
-      errmsg  = "pe_pkgname(): optional facts hash expects keys "
-      errmsg << "(#{expected_facts.join(', ')}) to be set;"
-      errmsg << " provided facts hash missing (#{missing_facts.join(', ')})"
-      raise Puppet::Error, errmsg
-    end
-
     facts = manual_facts
   else
     # Look up the required facts from the current scope
@@ -56,6 +46,17 @@ EOD
       hash[key] = lookupvar("::#{key}")
       hash
     end
+  end
+
+  # If we've been passed a hash of manual facts, ensure that the provided
+  # hash has all the fields we need.
+  missing_facts = expected_facts.select { |fact| [nil, :undefined].include? facts[fact] }
+
+  if missing_facts.size > 0
+    errmsg  = "pe_pkgname(): facts hash expects keys "
+    errmsg << "(#{expected_facts.join(', ')}) to be set;"
+    errmsg << " provided facts hash missing (#{missing_facts.join(', ')})"
+    raise Puppet::Error, errmsg
   end
 
   # lazy shorthand for interpolation
