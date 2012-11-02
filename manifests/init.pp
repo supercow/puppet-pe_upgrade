@@ -76,106 +76,19 @@ class pe_upgrade(
       # has been performed.
     }
     else {
-      require staging
 
-      ############################################################################
+      # ---------------
       # Munge variables
-      ############################################################################
 
       $installer_dir = pe_pkgname($version)
       $installer_tar = "${installer_dir}.tar.gz"
 
-      $source_url = "${download_dir}/${installer_tar}"
+      $staging_root = "${staging::path}/pe_upgrade"
 
-      if $mode == 'install' {
-        $execute = "${staging::path}/pe_upgrade/${installer_dir}/puppet-enterprise-installer"
-      } else {
-        $execute = "${staging::path}/pe_upgrade/${installer_dir}/puppet-enterprise-upgrader"
-      }
-
-      $answersfile_dest = "${staging::path}/pe_upgrade/answers.txt"
-
-      ############################################################################
-      # Stage the installer and answers file
-      ############################################################################
-
-      if $checksum {
-        # Remove failed staging attempts. Nominally this should be in
-        # the staging module.
-        exec { "rm ${installer_tar}":
-          path   => "/usr/bin:/bin",
-          onlyif => "test `md5sum ${installer_tar}` != ${checksum}",
-          before => Staging::File[$installer_tar],
-        }
-      }
-
-      staging::file { $installer_tar:
-        source  => $source_url,
-        timeout => $timeout,
-      }
-
-      staging::extract { $installer_tar:
-        target  => "${staging::path}/pe_upgrade",
-        require => Staging::File[$installer_tar],
-      }
-
-      file { $answersfile_dest:
-        ensure  => present,
-        content => template($answersfile),
-        owner   => 0,
-        group   => 0,
-        require => File["${staging::path}/pe_upgrade"],
-      }
-
-      ############################################################################
-      # Validate and perform upgrade
-      ############################################################################
-
-      exec { 'Validate answers':
-        command   => "${execute} -n -a ${answersfile_dest}",
-        path      => [
-          '/usr/bin',
-          '/bin',
-          '/usr/local/bin',
-          '/usr/sbin',
-          '/sbin',
-          '/usr/local/sbin'
-        ],
-        user      => 0,
-        group     => 0,
-        logoutput => on_failure,
-        timeout   => $timeout,
-        require   => Staging::Extract[$installer_tar],
-      }
-
-      exec { 'Run upgrade':
-        command   => "${execute} -a ${answersfile_dest}",
-        path      => [
-          '/usr/bin',
-          '/bin',
-          '/usr/local/bin',
-          '/usr/sbin',
-          '/sbin',
-          '/usr/local/sbin'
-        ],
-        user      => 0,
-        group     => 0,
-        logoutput => on_failure,
-        timeout   => $timeout,
-        require   => Exec['Validate answers'],
-      }
-
-      ############################################################################
-      # If running in install mode, then shut down Puppet Open Source after install
-      # Don't actually remove it. Let the user define that strategy
-      ############################################################################
-      if $mode == 'install' {
-        service { 'puppet':
-          ensure  => stopped,
-          enable  => false,
-          require => Exec['Run upgrade'],
-        }
-      }
+      anchor { 'pe_upgrade::begin': } ->
+      class { 'pe_upgrade::staging':  timeout => $timeout } ->
+      class { 'pe_upgrade::exection': timeout => $timeout } ->
+      anchor { 'pe_upgrade::end': }
     }
   }
 }
