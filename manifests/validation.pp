@@ -44,6 +44,5 @@ class pe_upgrade::validation(
       }
     }
   }
-  notify { "Upgrade from ${::pe_version} to ${version} passed all validation, beginning upgrade": }
   # Behold, staircase code!
 }
