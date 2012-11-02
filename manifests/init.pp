@@ -25,6 +25,10 @@
 #
 # [*upgrade_master*]
 #
+# [*verbose*]
+#
+# [*logfile*]
+#
 # == Examples
 #
 #   # Install from Puppet Labs servers with all defaults
