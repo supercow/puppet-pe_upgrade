@@ -77,6 +77,7 @@ class pe_upgrade(
   $allow_downgrade = $pe_upgrade::data::allow_downgrade,
   $upgrade_master  = $pe_upgrade::data::upgrade_master,
   $verbose         = $pe_upgrade::data::verbose,
+  $logfile         = $pe_upgrade::data::logfile,
 ) inherits pe_upgrade::data {
 
   if $::pe_version == $version {
@@ -105,7 +106,10 @@ class pe_upgrade(
       allow_downgrade => $allow_downgrade,
     } ->
     class { 'pe_upgrade::staging':   timeout => $timeout } ->
-    class { 'pe_upgrade::execution': timeout => $timeout } ->
+    class { 'pe_upgrade::execution':
+      timeout => $timeout,
+      logfile => $logfile,
+    } ->
     anchor { 'pe_upgrade::end': }
   }
 }

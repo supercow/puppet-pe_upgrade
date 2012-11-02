@@ -1,4 +1,4 @@
-class pe_upgrade::execution($timeout) {
+class pe_upgrade::execution($timeout, $logfile) {
 
   include pe_upgrade
   # These variables are not passed as parameters because they have to remain
@@ -7,10 +7,17 @@ class pe_upgrade::execution($timeout) {
   $staging_root = $pe_upgrade::staging_root
   $answersfile  = $pe_upgrade::answersfile
 
-  $execute = $mode ? {
-    'install' => "${staging_root}/${installer_dir}/puppet-enterprise-installer",
-    default   => "${staging_root}/${installer_dir}/puppet-enterprise-upgrader",
+  $bin = $mode ? {
+    'install' => 'puppet-enterprise-installer',
+    default   => 'puppet-enterprise-upgrader',
   }
+
+  if $logfile { $log_directive = "-l ${logfile}" }
+  else        { $log_directive = "" }
+
+  $cmd = "${staging_root}/${installer_dir}/${bin}"
+  $validate_cmd = "${cmd} -n -a ${answersfile_dest}"
+  $run_cmd      = "${cmd} ${log_directive} -a ${answersfile_dest}"
 
   $exec_paths = [
     '/usr/bin',
@@ -34,7 +41,7 @@ class pe_upgrade::execution($timeout) {
   }
 
   exec { 'Validate answers':
-    command   => "${execute} -n -a ${answersfile_dest}",
+    command   => $validate_cmd,
     path      => $exec_paths,
     user      => 0,
     group     => 0,
@@ -44,7 +51,7 @@ class pe_upgrade::execution($timeout) {
   }
 
   exec { 'Run upgrade':
-    command   => "${execute} -a ${answersfile_dest}",
+    command   => $run_cmd,
     path      => $exec_paths,
     user      => 0,
     group     => 0,

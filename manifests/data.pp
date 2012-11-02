@@ -88,6 +88,13 @@
 # * global variable: pe_upgrade_verbose
 # * default value: false
 #
+# === [*logfile*]
+#
+# If specified, writes the upgrade log to the given file.
+#
+# * global variable: pe_upgrade_logfile
+# * default value: false
+#
 # == Authors
 #
 # Adrien Thebo <adrien@puppetlabs.com>
@@ -144,4 +151,7 @@ class pe_upgrade::data {
 
   if $::pe_upgrade_verbose { $verbose = $::pe_upgrade_verbose }
   else { $verbose = false }
+
+  if $::pe_upgrade_logfile { $logfile = $::pe_upgrade_logfile }
+  else { $logfile = false }
 }
