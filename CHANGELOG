@@ -1,6 +1,17 @@
 CHANGELOG
 =========
 
+0.3.0
+-----
+
+This is a backwards compatible feature and bugfix release
+
+  * Clean up fact resolution for pe_version facts
+  * Add function to intelligently select pe packages to download
+  * Improved validation, prevention of downgrades and accidental master upgrades
+  * Split up validation, staging, and execution steps
+  * Add support for logging the upgrade process
+
 0.2.0
 -----
 
