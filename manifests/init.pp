@@ -85,12 +85,12 @@ class pe_upgrade(
     $installer_dir = pe_pkgname($version)
     $installer_tar = "${installer_dir}.tar.gz"
 
-    include staging
-    $staging_root = "${staging::path}/pe_upgrade"
+    include "::staging"
+    $staging_root = "${::staging::path}/pe_upgrade"
 
     anchor { 'pe_upgrade::begin': } ->
     class { 'pe_upgrade::validation': } ->
-    class { 'pe_upgrade::staging':  timeout => $timeout } ->
+    class { 'pe_upgrade::staging':   timeout => $timeout } ->
     class { 'pe_upgrade::execution': timeout => $timeout } ->
     anchor { 'pe_upgrade::end': }
   }
