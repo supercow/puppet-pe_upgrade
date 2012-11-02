@@ -34,6 +34,27 @@
 # * global variable: pe_upgrade_answersfile
 # * default value: pe_upgrade/answers/default-agent.txt.erb
 #
+# === [*mode*]
+#
+# Select whether to upgrade PE versions or upgrade Puppet open source to PE.
+#
+# * global variable: pe_upgrade_mode
+# * default value: upgrade
+#
+# === [*server*]
+#
+# The server variable to use when templating the answersfile.
+#
+# * global variable: pe_upgrade_server
+# * default value: $::server
+#
+# === [*certname*]
+#
+# The certname variable to use when templating the answersfile.
+#
+# * global variable: pe_upgrade_certname
+# * default value: $::clientcert
+#
 # === [*timeout*]
 #
 # The timeout in seconds for the download of the Puppet Enterprise installer.
