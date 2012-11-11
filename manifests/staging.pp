@@ -11,9 +11,7 @@ class pe_upgrade::staging($timeout) {
   $checksum      = $::pe_upgrade::checksum
   $staging_root  = $::pe_upgrade::staging_root
 
-  $source_url    = "${download_dir}/${version}/${installer_tar}"
-
-  Exec { cwd => $staging_root }
+  $source_url    = "${download_dir}/${installer_tar}"
 
   if $checksum {
     # Remove failed staging attempts. Nominally this should be in
