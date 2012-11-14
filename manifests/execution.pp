@@ -3,6 +3,7 @@ class pe_upgrade::execution(
   $installer_dir,
   $logfile,
   $mode,
+  $migrate_certs,
   $server,
   $staging_root,
   $timeout,
@@ -69,22 +70,24 @@ class pe_upgrade::execution(
       require => Exec['Run upgrade'],
     }
 
-    file { ['/etc/puppetlabs', '/etc/puppetlabs/puppet']:
-      ensure  => directory,
-      owner   => 0,
-      group   => 0,
-      mode    => '0700',
-      before  => Exec['Run upgrade'],
-    }
+    if $migrate_certs {
+      file { ['/etc/puppetlabs', '/etc/puppetlabs/puppet']:
+        ensure  => directory,
+        owner   => 0,
+        group   => 0,
+        mode    => '0700',
+        before  => Exec['Run upgrade'],
+      }
 
-    # This is done over a recursive file definition because the file definition
-    # will display diffs and thus leak sensitive information.
-    exec { '/bin/cp --recursive --force /var/lib/puppet/ssl /etc/puppetlabs/puppet/':
-      user      => 0,
-      group     => 0,
-      logoutput => on_failure,
-      require   => Exec['Run upgrade'],
-      before    => Service['puppet'],
+      # This is done over a recursive file definition because the file definition
+      # will display diffs and thus leak sensitive information.
+      exec { '/bin/cp --recursive --force /var/lib/puppet/ssl /etc/puppetlabs/puppet/':
+        user      => 0,
+        group     => 0,
+        logoutput => on_failure,
+        require   => Exec['Run upgrade'],
+        before    => Service['puppet'],
+      }
     }
   }
 }

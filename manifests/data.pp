@@ -41,6 +41,14 @@
 # * global variable: pe_upgrade_mode
 # * default value: upgrade
 #
+# === [*migrate_certs*]
+#
+# If **mode** is set to install, this will optionally migrate the open source
+# SSL directory to the PE installation.
+#
+# * global variable: pe_upgrade_migrate_certs
+# * default value: false
+#
 # === [*server*]
 #
 # The server variable to use when templating the answersfile.
@@ -154,4 +162,7 @@ class pe_upgrade::data {
 
   if $::pe_upgrade_logfile { $logfile = $::pe_upgrade_logfile }
   else { $logfile = false }
+
+  if $::pe_upgrade_migrate_certs { $migrate_certs = $::pe_upgrade_migrate_certs }
+  else { $migrate_certs = false }
 }

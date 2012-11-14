@@ -76,6 +76,7 @@ class pe_upgrade(
   $checksum        = $pe_upgrade::data::checksum,
   $timeout         = $pe_upgrade::data::timeout,
   $mode            = $pe_upgrade::data::mode,
+  $migrate_certs   = $pe_upgrade::data::migrate_certs,
   $server          = $pe_upgrade::data::server,
   $certname        = $pe_upgrade::data::certname,
   $allow_downgrade = $pe_upgrade::data::allow_downgrade,
@@ -112,6 +113,7 @@ class pe_upgrade(
     class { 'pe_upgrade::staging':   timeout => $timeout } ->
     class { 'pe_upgrade::execution':
       mode          => $mode,
+      migrate_certs => $migrate_certs,
       staging_root  => $staging_root,
       installer_dir => $installer_dir,
       timeout       => $timeout,
