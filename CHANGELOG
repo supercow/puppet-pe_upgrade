@@ -11,6 +11,7 @@ This is a backwards compatible feature and bugfix release
   * Improved validation, prevention of downgrades and accidental master upgrades
   * Split up validation, staging, and execution steps
   * Add support for logging the upgrade process
+  * If the install mode is used, open source ssl data can be migrated to PE
 
 0.2.0
 -----
