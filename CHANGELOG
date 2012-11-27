@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+0.4.0
+-----
+
+This is a backwards compatible bugfix release
+
+  * (pe_upgrade #12) Remove internal pe_upgrade version facts in favor of stdlib
+
 0.3.0
 -----
 
