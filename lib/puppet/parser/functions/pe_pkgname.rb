@@ -74,7 +74,7 @@ EOD
     when 'Ubuntu'
       pkg = "puppet-enterprise-%s-ubuntu-#{f['lsbdistrelease']}-#{f['architecture']}"
     end
-  when 'SLES'
+  when 'Suse'
     pkg = "puppet-enterprise-%s-sles-11-#{f['architecture']}"
   when 'Solaris'
     pkg = "puppet-enterprise-%s-solaris-10-#{f['architecture']}"
