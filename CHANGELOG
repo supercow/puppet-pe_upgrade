@@ -4,9 +4,11 @@ CHANGELOG
 0.4.0
 -----
 
-This is a backwards compatible bugfix release
+This is a backwards compatible bugfix and feature release
 
-  * (pe_upgrade #12) Remove internal pe_upgrade version facts in favor of stdlib
+  * (pe_upgrade-#12) Remove internal pe_upgrade version facts in favor of stdlib
+  * (pe_upgrade-#14) Purge old installer tarballs from staging
+  * (pe_upgrade-#11) Fix SLES osfamily name in pe_pkgname
 
 0.3.0
 -----
