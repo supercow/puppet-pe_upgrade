@@ -4,6 +4,8 @@ CHANGELOG
 0.4.0
 -----
 
+2012-12-05
+
 This is a backwards compatible bugfix and feature release
 
   * (pe_upgrade-#12) Remove internal pe_upgrade version facts in favor of stdlib
