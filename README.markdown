@@ -105,9 +105,6 @@ and usage.
 Caveats
 -------
 
-This module needs to download the universal installer on every node; this will
-be fixed in later releases.
-
 Due to the complexity of upgrading masters, using this module to upgrade a
 master is possible but not supported out of the box; you'll have to supply
 your own answers file.
