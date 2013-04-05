@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+0.4.2
+-----
+
+2013-04-05
+
+This is a backwards compatible bugfix release.
+
+  * (pe_upgrade-#17) ACTUALLY correct module permissions in published module.
+
 0.4.1
 -----
 
