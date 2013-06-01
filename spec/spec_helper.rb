@@ -2,7 +2,7 @@ require 'rspec'
 require 'puppet'
 require 'rspec-puppet'
 require 'mocha'
-require_relative './helpers/platforms.rb'
+require_relative './helpers/platform_helpers.rb'
 
 PROJECT_ROOT = File.expand_path('..', File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(PROJECT_ROOT, "lib"))

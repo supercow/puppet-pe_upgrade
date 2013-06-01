@@ -1,5 +1,5 @@
 module PlatformHelpers
-  def self.platform_context(osfamily, distro, architectures, releases)
+  def self.platform_context(distro, architectures, releases, facts = {})
 
     architectures.each do |arch|
       releases.each do |release|
@@ -9,12 +9,13 @@ module PlatformHelpers
         shared_context platform_name do
           let(:facts) do
             {
-              'osfamily'               => osfamily,
+              'osfamily'               => distro,
               'operatingsystem'        => distro,
               'operatingsystemrelease' => release,
               'hardwaremodel'          => arch,
+              'pe_upgrade_installer'   => "puppet-enterprise-2.5.3-#{distro}-#{release}-#{arch}",
               'pe_upgrade_extension'   => 'tar.gz',
-            }
+            }.merge facts
           end
         end
       end
