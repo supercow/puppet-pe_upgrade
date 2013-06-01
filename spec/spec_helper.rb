@@ -2,6 +2,7 @@ require 'rspec'
 require 'puppet'
 require 'rspec-puppet'
 require 'mocha'
+require_relative './helpers/platforms.rb'
 
 PROJECT_ROOT = File.expand_path('..', File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(PROJECT_ROOT, "lib"))
@@ -11,8 +12,6 @@ $LOAD_PATH.unshift(File.join(PROJECT_ROOT, "lib"))
 Dir.glob(File.join(PROJECT_ROOT, 'spec', 'shared_contexts', '*')).each do |context|
   require context
 end
-
-require_relative './helpers/platforms.rb'
 
 fixture_path = File.expand_path(File.join('spec', 'fixtures'), PROJECT_ROOT)
 
