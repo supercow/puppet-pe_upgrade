@@ -19,7 +19,7 @@ class pe_upgrade::staging(
   $version,
   $installer,
   $download_dir,
-  $staging_dir,
+  $staging_root,
   $timeout,
 ) {
 
