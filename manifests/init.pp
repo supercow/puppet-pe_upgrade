@@ -118,7 +118,13 @@ class pe_upgrade(
       upgrade_master  => $upgrade_master,
       allow_downgrade => $allow_downgrade,
     } ->
-    class { 'pe_upgrade::staging':   timeout => $timeout } ->
+    class { 'pe_upgrade::staging':
+      version      => $version,
+      installer    => $::pe_upgrade_installer,
+      download_dir => $download_dir,
+      staging_root => $staging_root,
+      timeout      => $timeout,
+    } ->
     class { 'pe_upgrade::execution':
       mode          => $mode,
       migrate_certs => $migrate_certs,
