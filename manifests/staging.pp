@@ -33,9 +33,9 @@ class pe_upgrade::staging(
   include '::staging'
 
   $ext = $::pe_upgrade_extension
-  $installer_pkg = "${installer}.${ext}"
+  $installer_pkg = regsubst("${installer}.${ext}", ':version', $version)
 
-  $source_url = regsubst("${download_dir}/${version}/${installer_pkg}", ':version', $version)
+  $source_url = "${download_dir}/${version}/${installer_pkg}"
 
   #if $checksum {
   #  # Remove failed staging attempts. Nominally this should be in
