@@ -12,6 +12,8 @@ Dir.glob(File.join(PROJECT_ROOT, 'spec', 'shared_contexts', '*')).each do |conte
   require context
 end
 
+require_relative './helpers/platforms.rb'
+
 fixture_path = File.expand_path(File.join('spec', 'fixtures'), PROJECT_ROOT)
 
 RSpec.configure do |config|
