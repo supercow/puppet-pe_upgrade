@@ -19,8 +19,8 @@ class pe_upgrade::staging(
   $version,
   $installer,
   $download_dir,
-  $timeout,
   $staging_dir,
+  $timeout,
 ) {
 
   include '::staging'

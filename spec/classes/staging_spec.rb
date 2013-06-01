@@ -7,7 +7,7 @@ describe 'pe_upgrade::staging', :type => :class do
     'pe_upgrade_extension' => 'tar.gz',
   }}
 
-  let(:installer) { 'puppet-enterprise-2.5.3-debian-6-i386' }
+  let(:installer) { 'puppet-enterprise-2.5.3-el-6-i386' }
 
   let(:params) {{
     'installer'    => installer,
