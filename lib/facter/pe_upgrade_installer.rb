@@ -4,25 +4,33 @@
 #
 # Resolution: Provide the worst implementation of fizz buzz ever
 
-
-Facter.add(:pe_upgrade_installer) do
+Facter.add(:pe_upgrade_codename) do
+  confine :osfamily => %w[Debian Redhat Suse Solaris AIX]
 
   setcode do
     case Facter.value(:osfamily)
-    when 'Debian'
-      pkg_name = Facter.value(:operatingsystem).downcase
     when 'RedHat'
-      pkg_name = 'el'
+      'el'
     when 'Suse'
-      pkg_name = 'sles'
+      'sles'
+    when 'Debian'
+      Facter.value(:operatingsystem).downcase
     when 'Solaris', 'AIX'
-      pkg_name = Facter.value(:osfamily)
+      Facter.value(:osfamily).downcase
     end
+  end
+end
 
-    arch    = Facter.value(:architecture)
-    release = Facter.value(:operatingsystemrelease)
+Facter.add(:pe_upgrade_installer) do
 
-    "puppet-enterprise-:version-#{pkg_name}-#{release}-#{arch}.tar.gz"
+  confine :osfamily => %w[Debian Redhat Suse Solaris AIX]
+
+  setcode do
+    codename = Facter.value(:pe_upgrade_codename)
+    arch     = Facter.value(:architecture)
+    release  = Facter.value(:operatingsystemrelease)
+
+    "puppet-enterprise-:version-#{codename}-#{release}-#{arch}"
   end
 end
 
