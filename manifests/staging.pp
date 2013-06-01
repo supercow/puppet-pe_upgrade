@@ -14,6 +14,13 @@
 # version of PE as a directory component.
 #
 # * example: 'https://my.site.downloads/puppet-enterprise'
+#
+# === [*staging_root*]
+#
+# The full path where the installer should be downloaded to
+#
+# * example: '/opt/staging/pe_upgrade'
+#
 
 class pe_upgrade::staging(
   $version,
