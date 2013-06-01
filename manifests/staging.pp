@@ -20,6 +20,7 @@ class pe_upgrade::staging(
   $installer,
   $download_dir,
   $timeout,
+  $staging_dir,
 ) {
 
   include '::staging'
@@ -45,8 +46,6 @@ class pe_upgrade::staging(
     timeout => $timeout,
   }
 
-
-  $staging_root = $pe_upgrade::staging_root
   staging::extract { $installer_pkg:
     target  => $staging_root,
     require => Staging::File[$installer_tar],

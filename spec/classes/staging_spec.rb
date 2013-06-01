@@ -14,6 +14,7 @@ describe 'pe_upgrade::staging', :type => :class do
     'version'      => '2.5.3',
     'download_dir' => 'https://download.dir',
     'timeout'      => '300',
+    'staging_root' => '/opt/staging/pe_upgrade',
   }}
 
 
@@ -25,6 +26,8 @@ describe 'pe_upgrade::staging', :type => :class do
   end
 
   it do
-    should contain_staging__file("#{installer}.tar.gz")
+    should contain_staging__file("#{installer}.tar.gz").with({
+      'staging_root' => '/opt/staging/pe_upgrade',
+    })
   end
 end
