@@ -26,8 +26,8 @@ describe 'pe_upgrade::staging', :type => :class do
   end
 
   it do
-    should contain_staging__file("#{installer}.tar.gz").with({
-      'staging_root' => '/opt/staging/pe_upgrade',
+    should contain_staging__extract("#{installer}.tar.gz").with({
+      'target' => '/opt/staging/pe_upgrade',
     })
   end
 end
