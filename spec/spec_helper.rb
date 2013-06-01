@@ -2,13 +2,13 @@ require 'rspec'
 require 'puppet'
 require 'rspec-puppet'
 require 'mocha'
-require_relative './helpers/platform_helpers.rb'
 
 PROJECT_ROOT = File.expand_path('..', File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(PROJECT_ROOT, "lib"))
 
 # ---
 # Load all shared contexts
+require File.join(PROJECT_ROOT, 'spec', 'helpers', 'platform_helpers.rb')
 Dir.glob(File.join(PROJECT_ROOT, 'spec', 'shared_contexts', '*')).each do |context|
   require context
 end
