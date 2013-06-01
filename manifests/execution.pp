@@ -7,6 +7,7 @@ class pe_upgrade::execution(
   $server,
   $staging_root,
   $timeout,
+  $answersfile,
 ) {
 
   $bin = $mode ? {

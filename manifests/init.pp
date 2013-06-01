@@ -134,6 +134,7 @@ class pe_upgrade(
       logfile       => $logfile,
       certname      => $certname,
       server        => $server,
+      answersfile   => $answersfile,
     } ->
     anchor { 'pe_upgrade::end': }
   }
