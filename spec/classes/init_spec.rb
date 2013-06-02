@@ -7,6 +7,7 @@ describe 'pe_upgrade', :type => :class do
       'clientcert'           => 'wat',
       'pe_upgrade_installer' => 'puppet-enterprise-2.3.1',
       'pe_upgrade_extension' => 'tar.gz',
+      'pe_upgrade_version'   => '2.6.1',
     }
   end
 
