@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'pe_upgrade::execution', :type => :class do
 
-  shared_examples_for "running a Puppet Enterprise upgrade" do
+  shared_examples_for "executing a Puppet Enterprise upgrade" do
     let(:params) do
       {
         'certname'      => 'node-to-upgrade',
@@ -48,6 +48,6 @@ describe 'pe_upgrade::execution', :type => :class do
   end
 
   on_all_platforms do |platform|
-    it_behaves_like "running a Puppet Enterprise upgrade"
+    it_behaves_like "executing a Puppet Enterprise upgrade"
   end
 end
