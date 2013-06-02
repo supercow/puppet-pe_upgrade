@@ -131,7 +131,7 @@ class pe_upgrade::params {
   $download_dir = pick($::pe_upgrade_download_dir, "https://pm.puppetlabs.com/puppet-enterprise")
 
   # @deprecated
-  $checksum    = pick($::pe_upgrade_checksum, undef)
+  $checksum    = $::pe_upgrade_checksum
 
   $answersfile = pick($::pe_upgrade_answersfile, "pe_upgrade/answers/default-agent.txt.erb")
   $timeout     = pick($::pe_upgrade_timeout,     '3600')
@@ -145,4 +145,3 @@ class pe_upgrade::params {
   $logfile         = pick($::pe_upgrade_logfile,         false)
   $migrate_certs   = pick($::pe_upgrade_migrate_certs,   false)
 }
-
