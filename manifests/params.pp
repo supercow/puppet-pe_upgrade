@@ -128,7 +128,7 @@
 class pe_upgrade::params {
 
   $version      = pick($::pe_upgrade_version,      chomp(file('/opt/puppet/pe_version')))
-  $download_dir = pick($::pe_upgrade_download_dir, "https://pm.puppetlabs.com/puppet-enterprise/${version}")
+  $download_dir = pick($::pe_upgrade_download_dir, "https://pm.puppetlabs.com/puppet-enterprise")
 
   # @deprecated
   $checksum    = pick($::pe_upgrade_checksum, undef)
