@@ -6,7 +6,7 @@ describe 'pe_upgrade::execution', :type => :class do
     let(:params) do
       {
         'certname'      => 'node-to-upgrade',
-        'installer_dir' => '/opt/staging/pe_upgrade/puppet-enterprise-2.5.3',
+        'installer'     => 'puppet-enterprise-2.5.3',
         'logfile'       => false,
         'mode'          => 'upgrade',
         'migrate_certs' => false,

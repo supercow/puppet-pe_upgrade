@@ -1,6 +1,6 @@
 class pe_upgrade::execution(
   $certname,
-  $installer_dir,
+  $installer,
   $logfile,
   $mode,
   $migrate_certs,
@@ -20,7 +20,7 @@ class pe_upgrade::execution(
 
   $answersfile_dest = "${staging_root}/answers.txt"
 
-  $cmd = "${staging_root}/${installer_dir}/${bin}"
+  $cmd = "${staging_root}/${installer}/${bin}"
   $validate_cmd = "${cmd} -n -a ${answersfile_dest}"
   $run_cmd      = "${cmd} ${log_directive} -a ${answersfile_dest}"
 

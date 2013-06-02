@@ -109,8 +109,7 @@ class pe_upgrade(
     # ---------------
     # Munge variables
 
-    $installer_dir = pe_pkgname($version)
-    $installer_tar = "${installer_dir}.tar.gz"
+    $installer = $::pe_upgrade_installer
 
     anchor { 'pe_upgrade::begin': } ->
     class { 'pe_upgrade::validation':
@@ -120,7 +119,7 @@ class pe_upgrade(
     } ->
     class { 'pe_upgrade::staging':
       version      => $version,
-      installer    => $::pe_upgrade_installer,
+      installer    => $installer,
       download_dir => $download_dir,
       staging_root => $staging_root,
       timeout      => $timeout,
@@ -129,7 +128,7 @@ class pe_upgrade(
       mode          => $mode,
       migrate_certs => $migrate_certs,
       staging_root  => $staging_root,
-      installer_dir => $installer_dir,
+      installer     => $installer,
       timeout       => $timeout,
       logfile       => $logfile,
       certname      => $certname,
