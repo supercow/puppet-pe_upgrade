@@ -85,6 +85,9 @@ class pe_upgrade(
   $logfile         = $pe_upgrade::params::logfile,
 ) inherits pe_upgrade::params {
 
+  include "::staging"
+  $staging_root = "${::staging::path}/pe_upgrade"
+
   if $::pe_version == $version {
     # When versions match we can safely purge the PE downloads
     file { $staging_root:
@@ -102,9 +105,6 @@ class pe_upgrade(
     }
   }
   else {
-
-    include "::staging"
-    $staging_root = "${::staging::path}/pe_upgrade"
 
     $installer = $::pe_upgrade_installer
 

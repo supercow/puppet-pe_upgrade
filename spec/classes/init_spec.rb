@@ -12,18 +12,25 @@ describe 'pe_upgrade', :type => :class do
   end
 
   shared_examples_for 'orchestrating a Puppet Enterprise upgrade' do |platform|
-    describe 'when PE is up to date' do
-      let(:params) {{ 'version' => '2.5.3' }}
+    describe 'When PE is up to date' do
+      before { facts['pe_version'] = '2.6.1' }
 
       describe 'and verbose is true' do
-        it "adds a notify that the upgrade is complete"
+        let(:params) {{ 'verbose' => true }}
+        it do
+          should contain_notify("Upgrade status").with({
+            'loglevel' => 'info'
+          })
+        end
       end
 
       describe 'and verbose is false' do
-        it "doesn't add a notify"
+        it { should_not contain_notify("Upgrade status") }
       end
 
-      it "purges the staging root of old installers"
+      it "purges the staging root of old installers" do
+        should contain_file('/opt/staging/pe_upgrade')
+      end
     end
 
     describe 'when an upgrade is required' do
