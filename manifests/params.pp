@@ -1,4 +1,4 @@
-# = Class: pe_upgrade::data
+# = Class: pe_upgrade::params
 #
 # This class provides lookup of values for the upgrade process
 #
@@ -125,7 +125,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-class pe_upgrade::data {
+class pe_upgrade::params {
 
   if $::pe_upgrade_version { $version = $::pe_upgrade_version }
   else { $version = chomp(file('/opt/puppet/pe_version')) }
@@ -166,3 +166,4 @@ class pe_upgrade::data {
   if $::pe_upgrade_migrate_certs { $migrate_certs = $::pe_upgrade_migrate_certs }
   else { $migrate_certs = false }
 }
+

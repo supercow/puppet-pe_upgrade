@@ -5,7 +5,7 @@
 # == Parameters
 #
 # If a parameter is not specified, it will default to the value in
-# pe_upgrade::data. See that class for values
+# pe_upgrade::params. See that class for values
 #
 # [*version*]
 #
@@ -70,20 +70,20 @@
 # limitations under the License.
 #
 class pe_upgrade(
-  $download_dir    = $pe_upgrade::data::download_dir,
-  $version         = $pe_upgrade::data::version,
-  $answersfile     = $pe_upgrade::data::answersfile,
-  $checksum        = $pe_upgrade::data::checksum,
-  $timeout         = $pe_upgrade::data::timeout,
-  $mode            = $pe_upgrade::data::mode,
-  $migrate_certs   = $pe_upgrade::data::migrate_certs,
-  $server          = $pe_upgrade::data::server,
-  $certname        = $pe_upgrade::data::certname,
-  $allow_downgrade = $pe_upgrade::data::allow_downgrade,
-  $upgrade_master  = $pe_upgrade::data::upgrade_master,
-  $verbose         = $pe_upgrade::data::verbose,
-  $logfile         = $pe_upgrade::data::logfile,
-) inherits pe_upgrade::data {
+  $download_dir    = $pe_upgrade::params::download_dir,
+  $version         = $pe_upgrade::params::version,
+  $answersfile     = $pe_upgrade::params::answersfile,
+  $checksum        = $pe_upgrade::params::checksum,
+  $timeout         = $pe_upgrade::params::timeout,
+  $mode            = $pe_upgrade::params::mode,
+  $migrate_certs   = $pe_upgrade::params::migrate_certs,
+  $server          = $pe_upgrade::params::server,
+  $certname        = $pe_upgrade::params::certname,
+  $allow_downgrade = $pe_upgrade::params::allow_downgrade,
+  $upgrade_master  = $pe_upgrade::params::upgrade_master,
+  $verbose         = $pe_upgrade::params::verbose,
+  $logfile         = $pe_upgrade::params::logfile,
+) inherits pe_upgrade::params {
 
   include "::staging"
   $staging_root = "${::staging::path}/pe_upgrade"
