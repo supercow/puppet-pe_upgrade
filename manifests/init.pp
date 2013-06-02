@@ -97,7 +97,7 @@ class pe_upgrade(
     }
 
     # When versions match we can safely purge the PE downloads
-    file {$staging_root:
+    file { $staging_root:
       force   => true,
       recurse => true,
       purge   => true,
