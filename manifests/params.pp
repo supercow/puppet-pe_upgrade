@@ -127,43 +127,22 @@
 #
 class pe_upgrade::params {
 
-  if $::pe_upgrade_version { $version = $::pe_upgrade_version }
-  else { $version = chomp(file('/opt/puppet/pe_version')) }
+  $version      = pick($::pe_upgrade_version,      chomp(file('/opt/puppet/pe_version')))
+  $download_dir = pick($::pe_upgrade_download_dir, "https://pm.puppetlabs.com/puppet-enterprise/${version}")
 
-  if $::pe_upgrade_download_dir { $download_dir = $::pe_upgrade_download_dir }
-  else { $download_dir = "https://pm.puppetlabs.com/puppet-enterprise/${version}" }
+  # @deprecated
+  $checksum    = pick($::pe_upgrade_checksum, undef)
 
-  if $::pe_upgrade_checksum { $checksum = $::pe_upgrade_checksum }
-  else { $checksum = undef }
+  $answersfile = pick($::pe_upgrade_answersfile, "pe_upgrade/answers/default-agent.txt.erb")
+  $timeout     = pick($::pe_upgrade_timeout,     '3600')
+  $mode        = pick($::pe_upgrade_mode,        'upgrade')
+  $server      = pick($::pe_upgrade_server,      $::servername)
+  $certname    = pick($::pe_upgrade_certname,    $::clientcert)
 
-  if $::pe_upgrade_answersfile { $answersfile = $::pe_upgrade_answersfile }
-  else { $answersfile = "pe_upgrade/answers/default-agent.txt.erb" }
-
-  if $::pe_upgrade_timeout { $timeout = $::pe_upgrade_timeout }
-  else { $timeout = '3600' }
-
-  if $::pe_upgrade_mode { $mode = $::pe_upgrade_mode }
-  else { $mode = 'upgrade' }
-
-  if $::pe_upgrade_server { $server = $::pe_upgrade_server }
-  else { $server = $::servername }
-
-  if $::pe_upgrade_certname { $server = $::pe_upgrade_certname }
-  else { $certname = $::clientcert }
-
-  if $::pe_upgrade_allow_downgrade { $allow_downgrade = $::pe_upgrade_allow_downgrade }
-  else { $allow_downgrade = false }
-
-  if $::pe_upgrade_upgrade_master { $upgrade_master = $::pe_upgrade_upgrade_master }
-  else { $upgrade_master = false }
-
-  if $::pe_upgrade_verbose { $verbose = $::pe_upgrade_verbose }
-  else { $verbose = false }
-
-  if $::pe_upgrade_logfile { $logfile = $::pe_upgrade_logfile }
-  else { $logfile = false }
-
-  if $::pe_upgrade_migrate_certs { $migrate_certs = $::pe_upgrade_migrate_certs }
-  else { $migrate_certs = false }
+  $allow_downgrade = pick($::pe_upgrade_allow_downgrade, false)
+  $upgrade_master  = pick($::pe_upgrade_upgrade_master,  false)
+  $verbose         = pick($::pe_upgrade_verbose,         false)
+  $logfile         = pick($::pe_upgrade_logfile,         false)
+  $migrate_certs   = pick($::pe_upgrade_migrate_certs,   false)
 }
 
