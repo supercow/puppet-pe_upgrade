@@ -12,7 +12,7 @@ describe 'pe_upgrade', :type => :class do
   end
 
   shared_examples_for 'orchestrating a Puppet Enterprise upgrade' do |platform|
-    describe 'When PE is up to date' do
+    describe 'when PE is up to date' do
       let(:params) {{ 'version' => '2.5.3' }}
 
       describe 'and verbose is true' do
