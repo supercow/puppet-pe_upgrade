@@ -28,7 +28,7 @@ Facter.add(:pe_upgrade_installer) do
   setcode do
     codename = Facter.value(:pe_upgrade_codename)
     arch     = Facter.value(:architecture)
-    release  = Facter.value(:operatingsystemrelease)
+    release  = Facter.value(:pe_upgrade_distro_version)
 
     "puppet-enterprise-:version-#{codename}-#{release}-#{arch}"
   end
