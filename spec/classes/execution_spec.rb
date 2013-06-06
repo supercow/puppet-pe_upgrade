@@ -3,11 +3,12 @@ require 'spec_helper'
 describe 'pe_upgrade::execution', :type => :class do
 
   shared_examples_for "executing a Puppet Enterprise upgrade" do
+    let(:installer) { 'puppet-enterprise-2.5.3' }
     let(:params) do
       {
         'version'       => '2.5.3',
         'certname'      => 'node-to-upgrade',
-        'installer'     => 'puppet-enterprise-2.5.3',
+        'installer'     => installer,
         'logfile'       => false,
         'mode'          => 'upgrade',
         'migrate_certs' => false,
@@ -29,7 +30,7 @@ describe 'pe_upgrade::execution', :type => :class do
 
     it do
       should contain_exec('Validate answers').with({
-        'command'   => /puppet-enterprise-upgrader.*-n/,
+        'command'   => /#{Regexp.new(installer)}.*puppet-enterprise-upgrader.*-n/,
         'user'      => '0',
         'group'     => '0',
         'logoutput' => 'on_failure',
@@ -39,7 +40,7 @@ describe 'pe_upgrade::execution', :type => :class do
 
     it do
       should contain_exec('Run upgrade').with({
-        'command'   => /puppet-enterprise-upgrader/,
+        'command'   => /#{Regexp.new(installer)}.*puppet-enterprise-upgrader/,
         'user'      => '0',
         'group'     => '0',
         'logoutput' => 'on_failure',
