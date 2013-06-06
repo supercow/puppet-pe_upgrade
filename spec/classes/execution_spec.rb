@@ -8,7 +8,7 @@ describe 'pe_upgrade::execution', :type => :class do
       {
         'version'       => '2.5.3',
         'certname'      => 'node-to-upgrade',
-        'installer'     => installer,
+        'installer'     => 'puppet-enterprise-:version',
         'logfile'       => false,
         'mode'          => 'upgrade',
         'migrate_certs' => false,
