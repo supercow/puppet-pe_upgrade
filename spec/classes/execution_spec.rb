@@ -5,6 +5,7 @@ describe 'pe_upgrade::execution', :type => :class do
   shared_examples_for "executing a Puppet Enterprise upgrade" do
     let(:params) do
       {
+        'version'       => '2.5.3',
         'certname'      => 'node-to-upgrade',
         'installer'     => 'puppet-enterprise-2.5.3',
         'logfile'       => false,

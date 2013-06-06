@@ -122,6 +122,7 @@ class pe_upgrade(
       timeout      => $timeout,
     } ->
     class { 'pe_upgrade::execution':
+      version      => $version,
       mode          => $mode,
       migrate_certs => $migrate_certs,
       staging_root  => $staging_root,

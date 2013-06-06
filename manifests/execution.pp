@@ -1,6 +1,7 @@
 class pe_upgrade::execution(
   $certname,
   $installer,
+  $version,
   $logfile,
   $mode,
   $migrate_certs,
