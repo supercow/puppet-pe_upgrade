@@ -55,6 +55,6 @@ class pe_upgrade::staging(
 
   staging::extract { $installer_pkg:
     target  => $staging_root,
-    require => Staging::File[$installer_tar],
+    require => Staging::File[$installer_pkg],
   }
 }
