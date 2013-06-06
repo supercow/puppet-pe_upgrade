@@ -11,7 +11,7 @@ def location_for(place, fake_version = nil)
 end
 
 gem 'puppet', *location_for(ENV['PUPPET_VERSION'], '>= 2.7.0')
-gem 'facter', '>= 1.6.2'
+gem 'facter', '~> 1.6.0'
 
 group :test, :development do
   gem 'rspec', '~> 2.10.0'
