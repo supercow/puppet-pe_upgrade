@@ -22,7 +22,7 @@ describe 'pe_upgrade::execution', :type => :class do
     it do
       should contain_file('/opt/staging/pe_upgrade/answers.txt').with({
         'ensure'  => 'present',
-        'content' => /.+/,
+        'content' => /^q_puppetagent_server=server-node$.*^q_puppetagent_certname=node-to-upgrade$/m,
         'owner'   => '0',
         'group'   => '0',
       })
