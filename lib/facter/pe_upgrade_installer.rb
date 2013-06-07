@@ -21,13 +21,22 @@ Facter.add(:pe_upgrade_codename) do
   end
 end
 
+Facter.add(:pe_upgrade_architecture) do
+  confine :osfamily => 'Solaris'
+  setcode { Facter.value(:hardwareisa) }
+end
+
+Facter.add(:pe_upgrade_architecture) do
+  setcode { Facter.value(:architecture) }
+end
+
 Facter.add(:pe_upgrade_installer) do
 
   confine :osfamily => %w[Debian Redhat Suse Solaris AIX]
 
   setcode do
     codename = Facter.value(:pe_upgrade_codename)
-    arch     = Facter.value(:architecture)
+    arch     = Facter.value(:pe_upgrade_architecture)
     release  = Facter.value(:pe_upgrade_distro_version)
 
     "puppet-enterprise-:version-#{codename}-#{release}-#{arch}"
