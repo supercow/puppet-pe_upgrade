@@ -20,7 +20,7 @@ describe 'pe_upgrade::staging', :type => :class do
 
     it do
       should contain_staging__file("#{installer}.tar.gz").with({
-        'source'  => "https://download.dir/2.5.3/#{installer}.tar.gz",
+        'source'  => "https://download.dir/#{installer}.tar.gz",
         'timeout' => '300',
       })
     end

@@ -21,7 +21,7 @@ class pe_upgrade::execution(
 
   $answersfile_dest = "${staging_root}/answers.txt"
 
-  $cmd = regsubst("${staging_root}/${installer}/${bin}", ':version', $version)
+  $cmd = regsubst("${staging_root}/${installer}/${bin}", ':version', $version, 'G')
   $validate_cmd = "${cmd} -n -a ${answersfile_dest}"
   $run_cmd      = "${cmd} ${log_directive} -a ${answersfile_dest}"
 
