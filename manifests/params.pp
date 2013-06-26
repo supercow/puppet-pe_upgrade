@@ -127,21 +127,21 @@
 #
 class pe_upgrade::params {
 
-  $version      = pick($::pe_upgrade_version,      master_version())
-  $download_dir = pick($::pe_upgrade_download_dir, "https://pm.puppetlabs.com/puppet-enterprise/:version")
+  $version      = pe_upgrade_pick($::pe_upgrade_version,      master_version())
+  $download_dir = pe_upgrade_pick($::pe_upgrade_download_dir, "https://pm.puppetlabs.com/puppet-enterprise/:version")
 
   # @deprecated
   $checksum    = $::pe_upgrade_checksum
 
-  $answersfile = pick($::pe_upgrade_answersfile, "pe_upgrade/answers/default-agent.txt.erb")
-  $timeout     = pick($::pe_upgrade_timeout,     '3600')
-  $mode        = pick($::pe_upgrade_mode,        'upgrade')
-  $server      = pick($::pe_upgrade_server,      $::servername)
-  $certname    = pick($::pe_upgrade_certname,    $::clientcert)
+  $answersfile = pe_upgrade_pick($::pe_upgrade_answersfile, "pe_upgrade/answers/default-agent.txt.erb")
+  $timeout     = pe_upgrade_pick($::pe_upgrade_timeout,     '3600')
+  $mode        = pe_upgrade_pick($::pe_upgrade_mode,        'upgrade')
+  $server      = pe_upgrade_pick($::pe_upgrade_server,      $::servername)
+  $certname    = pe_upgrade_pick($::pe_upgrade_certname,    $::clientcert)
 
-  $allow_downgrade = pick($::pe_upgrade_allow_downgrade, false)
-  $upgrade_master  = pick($::pe_upgrade_upgrade_master,  false)
-  $verbose         = pick($::pe_upgrade_verbose,         false)
-  $logfile         = pick($::pe_upgrade_logfile,         false)
-  $migrate_certs   = pick($::pe_upgrade_migrate_certs,   false)
+  $allow_downgrade = pe_upgrade_pick($::pe_upgrade_allow_downgrade, false)
+  $upgrade_master  = pe_upgrade_pick($::pe_upgrade_upgrade_master,  false)
+  $verbose         = pe_upgrade_pick($::pe_upgrade_verbose,         false)
+  $logfile         = pe_upgrade_pick($::pe_upgrade_logfile,         false)
+  $migrate_certs   = pe_upgrade_pick($::pe_upgrade_migrate_certs,   false)
 }
