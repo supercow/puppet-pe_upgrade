@@ -7,11 +7,17 @@ class pe_upgrade::execution(
   $server,
   $staging_root,
   $timeout,
+  $answersfile = "${module_name}/answers/default-agent.txt.erb"
 ) {
+  include pe_upgrade::data
 
-  $bin = $mode ? {
-    'install' => 'puppet-enterprise-installer',
-    default   => 'puppet-enterprise-upgrader',
+  if versioncmp($pe_upgrade::data::version,'3.0.0') >= 0 {
+    $bin = 'puppet-enterprise-installer'
+  } else {
+    $bin = $mode ? {
+      'install' => 'puppet-enterprise-installer',
+      default   => 'puppet-enterprise-upgrader',
+    }
   }
 
   if $logfile { $log_directive = "-l ${logfile}" }

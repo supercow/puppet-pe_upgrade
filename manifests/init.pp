@@ -29,6 +29,8 @@
 #
 # [*logfile*]
 #
+# [*fact_hash*]
+#
 # == Examples
 #
 #   # Install from Puppet Labs servers with all defaults
@@ -83,6 +85,7 @@ class pe_upgrade(
   $upgrade_master  = $pe_upgrade::data::upgrade_master,
   $verbose         = $pe_upgrade::data::verbose,
   $logfile         = $pe_upgrade::data::logfile,
+  $fact_hash       = $pe_upgrade::data::fact_hash,
 ) inherits pe_upgrade::data {
 
   include "::staging"
@@ -109,7 +112,11 @@ class pe_upgrade(
     # ---------------
     # Munge variables
 
-    $installer_dir = pe_pkgname($version)
+    if ! $fact_hash {
+      $installer_dir = pe_pkgname($version)
+    } else {
+      $installer_dir = pe_pkgname($version,$fact_hash)
+    }
     $installer_tar = "${installer_dir}.tar.gz"
 
     anchor { 'pe_upgrade::begin': } ->
@@ -118,7 +125,10 @@ class pe_upgrade(
       upgrade_master  => $upgrade_master,
       allow_downgrade => $allow_downgrade,
     } ->
-    class { 'pe_upgrade::staging':   timeout => $timeout } ->
+    class { 'pe_upgrade::staging':
+      timeout => $timeout,
+      download_dir => $download_dir
+    } ->
     class { 'pe_upgrade::execution':
       mode          => $mode,
       migrate_certs => $migrate_certs,

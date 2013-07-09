@@ -1,4 +1,7 @@
-class pe_upgrade::staging($timeout) {
+class pe_upgrade::staging(
+  $timeout,
+  $download_dir,
+) {
 
   include pe_upgrade
   include staging

@@ -103,6 +103,14 @@
 # * global variable: pe_upgrade_logfile
 # * default value: false
 #
+# === [*fact_hash*]
+#
+# If specified, use different values for architecture, osfamily
+# operatingsystem, lsbdistrelease, and lsbmajdisrelease. Useful
+# for distros without the lsb facts
+#
+# * default value: undef
+#
 # == Authors
 #
 # Adrien Thebo <adrien@puppetlabs.com>
@@ -165,4 +173,7 @@ class pe_upgrade::data {
 
   if $::pe_upgrade_migrate_certs { $migrate_certs = $::pe_upgrade_migrate_certs }
   else { $migrate_certs = false }
+
+  $fact_hash = undef
+
 }
